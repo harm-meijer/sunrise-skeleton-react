@@ -1,14 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import App from "./App";
+import Products from "./Pages/Products";
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from "./apollo";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <ApolloProvider client={apolloClient}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="products" element={<Products />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </ApolloProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
