@@ -4,29 +4,29 @@ const getEnv = (env) => {
     : process.env[env];
 };
 let localConfig = {};
-if (getEnv('VUE_APP_LOCAL_SUNRISE_CONFIG')) {
+if (getEnv('REACT_APP_LOCAL_SUNRISE_CONFIG')) {
   localConfig = require(process.env
-    .VUE_APP_LOCAL_SUNRISE_CONFIG).default;
+    .REACT_APP_LOCAL_SUNRISE_CONFIG).default;
 }
 getEnv('hello_world');
 const config = {
   ct: {
     auth: {
       host:
-        getEnv('VUE_APP_CT_AUTH_HOST') ||
+        getEnv('REACT_APP_CT_AUTH_HOST') ||
         'https://auth.europe-west1.gcp.commercetools.com',
       projectKey:
-        getEnv('VUE_APP_CT_PROJECT_KEY') || 'sunrise-spa',
+        getEnv('REACT_APP_CT_PROJECT_KEY') || 'sunrise-spa',
       credentials: {
         clientId:
-          getEnv('VUE_APP_CT_CLIENT_ID') ||
+          getEnv('REACT_APP_CT_CLIENT_ID') ||
           '1mnlpBq-fHCCkAzmSXxNBB37',
         clientSecret:
-          getEnv('VUE_APP_CT_CLIENT_SECRET') ||
+          getEnv('REACT_APP_CT_CLIENT_SECRET') ||
           'WS9hXm6dKyqyuLOHciL6jkbCbFHrDSOL',
       },
       scope:
-        getEnv('VUE_APP_CT_SCOPE') ||
+        getEnv('REACT_APP_CT_SCOPE') ||
         'manage_my_orders:sunrise-spa ' +
           'manage_my_profile:sunrise-spa ' +
           'manage_my_payments:sunrise-spa ' +
@@ -37,7 +37,7 @@ const config = {
           'create_anonymous_token:sunrise-spa',
     },
     api:
-      getEnv('VUE_APP_CT_API_HOST') ||
+      getEnv('REACT_APP_CT_API_HOST') ||
       'https://api.europe-west1.gcp.commercetools.com',
   },
   languages: {

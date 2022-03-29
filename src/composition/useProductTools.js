@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import useProducts from "./useProducts";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import useProducts from './useProducts';
 
 function useProductTools(expand = false) {
   const { sku } = useParams();
@@ -10,14 +10,14 @@ function useProductTools(expand = false) {
       expand: expand ? { variants: true } : {},
     });
   const [product, setProduct] = useState(null);
-  useEffect(() => setProduct(products?.[0]));
+  useEffect(() => setProduct(products?.[0]), [products]);
   const [allVariants, setAllVariants] = useState();
   useEffect(
     () =>
       setAllVariants(
         product
           ? [product.masterVariant]
-              .concat(product.variants)
+              .concat(product.variants || [])
               .map((p) => ({
                 name: product.name,
                 slug: product.slug,
