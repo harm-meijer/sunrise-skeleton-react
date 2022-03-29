@@ -21,6 +21,7 @@ function Products() {
             product={product}
           />
         ))}
+      {/* @todo: use other returned values from useProductTools */}
       {/* @todo: need pagination */}
     </div>
   );

@@ -11,6 +11,7 @@ import App from "./App";
 import Products from "./Pages/Products";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "./apollo";
+import Product from "./Pages/Product";
 
 ReactDOM.render(
   <ApolloProvider client={apolloClient}>
@@ -25,6 +26,10 @@ ReactDOM.render(
               <Route path=":page" element={<Products />} />
             </Route>
           </Route>
+          <Route
+            path="product/:productSlug/:sku"
+            element={<Product />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
