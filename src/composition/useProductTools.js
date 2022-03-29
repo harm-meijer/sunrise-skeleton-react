@@ -1,53 +1,58 @@
-import { computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import useProducts from './useProducts';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useProducts from "./useProducts";
 
 function useProductTools(expand = false) {
-  const route = useRoute();
-  const router = useRouter();
-  const sku = computed(() => route.params.sku);
+  const { sku } = useParams();
   const { products, total, loading, error, categoryError } =
     useProducts({
       sku,
       expand: expand ? { variants: true } : {},
     });
-  const product = computed(() => products.value?.[0]);
-  const allVariants = computed(() =>
-    product.value
-      ? [product.value.masterVariant]
-          .concat(product.value.variants)
-          .map((p) => ({
-            name: product.value.name,
-            slug: product.value.slug,
-            ...p,
-          }))
-      : null
+  const [product, setProduct] = useState(null);
+  useEffect(() => setProduct(products?.[0]));
+  const [allVariants, setAllVariants] = useState();
+  useEffect(
+    () =>
+      setAllVariants(
+        product
+          ? [product.masterVariant]
+              .concat(product.variants)
+              .map((p) => ({
+                name: product.name,
+                slug: product.slug,
+                ...p,
+              }))
+          : null
+      ),
+    [product]
   );
-  const currentVariant = computed(() =>
-    allVariants.value
-      ? allVariants.value.find(
-          ({ sku: c }) => sku.value === c
-        )
-      : null
+  const [currentVariant, setCurrentVariant] =
+    useState(null);
+  useEffect(
+    () =>
+      setCurrentVariant(
+        allVariants
+          ? allVariants.find(({ sku: c }) => sku === c)
+          : null
+      ),
+    [allVariants, sku]
   );
 
   const setPage = (page) =>
-    router.push({
-      ...route,
-      params: {
-        ...route.params,
-        page,
-      },
-    });
-  const page = computed(() =>
-    Number(route.params.page || 1)
-  );
+    //@todo: update router param page
+    page;
+  const page = 1; //@todo: get page from route
   const formatProduct = (product) => ({
     ...product,
     ...product.masterVariant,
   });
-  const allError = computed(
-    () => error.value || categoryError.value
+  const [allError, setAllError] = useState(
+    error || categoryError
+  );
+  useEffect(
+    () => setAllError(error || categoryError),
+    [categoryError, error]
   );
   return {
     total,

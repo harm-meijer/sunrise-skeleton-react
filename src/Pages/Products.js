@@ -1,8 +1,27 @@
 import { useParams } from "react-router-dom";
+import useProductTools from "../composition/useProductTools";
 
 function Products() {
-  const { categorySlug = "all", page = "1" } = useParams();
-  console.log(categorySlug, page);
+  // const { addLine } = useCartTools();
+  const {
+    formatProduct,
+    products,
+    total,
+    loading,
+    page,
+    error,
+    setPage,
+  } = useProductTools();
+
+  console.log({
+    formatProduct,
+    products,
+    total,
+    loading,
+    page,
+    error,
+    setPage,
+  });
   return "this is products";
 }
 export default Products;

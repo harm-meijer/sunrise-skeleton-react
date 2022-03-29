@@ -1,56 +1,59 @@
-import { computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import useLocale from './useLocale';
-import useLocation from './useLocation';
-import useCurrency from './useCurrency';
-import { ALL } from '../src/constants';
-import useProducts from './ct/useProducts';
-import usePaging from './usePaging';
-import useSearch from './useSearch';
-import useCustomerTools from './useCustomerTools';
-import useSelectedChannel from './useSelectedChannel';
-//vue specific useProducts
+import useLocale from "./useLocale";
+import useLocation from "./useLocation";
+import useCurrency from "./useCurrency";
+import useOrg from "./ct/useProducts";
+import usePaging from "./usePaging";
+import useSearch from "./useSearch";
+import useCustomerTools from "./useCustomerTools";
+import useSelectedChannel from "./useSelectedChannel";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 export const useSorts = () => {
-  const route = useRoute();
-  const router = useRouter();
-  const sorts = computed(() => {
-    return route?.query?.sort === 'newest'
-      ? ['lastModifiedAt desc']
-      : null;
-  });
+  //@todo: sort from url param
+  const [sorts] = useState(() => ["lastModifiedAt desc"]);
+  // route?.query?.sort === 'newest'
+  //   ? ['lastModifiedAt desc']
+  //   : null;
   const setSort = (sort) =>
-    router.push({
-      ...route,
-      query: {
-        ...route.query,
-        sort,
-      },
-    });
+    //@todo: set router sort
+    sort;
   return { sorts, setSort };
 };
-
-export default ({ expand } = {}) => {
+const allCategories = (slug) =>
+  slug === "all" ? null : slug;
+function useProducts({ expand } = {}) {
   const { customer } = useCustomerTools();
-  const route = useRoute();
   const { locale } = useLocale();
   const { location } = useLocation();
   const currency = useCurrency();
-  const categorySlug = computed(() =>
-    route.params.categorySlug === ALL
-      ? null
-      : route.params.categorySlug
+  const params = useParams();
+  const [categorySlug, setCategorySlug] = useState(() =>
+    allCategories(params.categorySlug)
   );
-  const customerGroup = computed(
-    () => customer.value?.customerGroupRef?.customerGroupId
+  useEffect(
+    () =>
+      setCategorySlug(allCategories(params.categorySlug)),
+    [params.categorySlug]
   );
-  const sku = computed(() => route?.params?.sku);
-  const page = computed(() => route.params.page || 1);
+
+  const [customerGroup, setCustomerGroup] = useState(
+    () => customer?.customerGroupRef?.customerGroupId
+  );
+  useEffect(
+    () =>
+      setCustomerGroup(
+        customer?.customerGroupRef?.customerGroupId
+      ),
+    [customer]
+  );
+  const { sku } = useParams();
+  const { page = 1 } = useParams();
   const { limit, offset } = usePaging(page);
   const { sorts, setSort } = useSorts();
   const { search } = useSearch();
   const { channel } = useSelectedChannel();
   const { total, products, loading, error, categoryError } =
-    useProducts({
+    useOrg({
       search,
       limit,
       offset,
@@ -73,4 +76,5 @@ export default ({ expand } = {}) => {
     sorts,
     setSort,
   };
-};
+}
+export default useProducts;
