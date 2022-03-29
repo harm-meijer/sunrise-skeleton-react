@@ -1,8 +1,8 @@
-import { apolloClient, cache } from '../../src/apollo';
-import { getValue } from '../../src/lib';
-import useMutation from '../useMutationFacade';
-import useCart from '../useCart';
-import gql from 'graphql-tag';
+import { apolloClient, cache } from "../../apollo";
+import { getValue } from "../../lib";
+import useMutation from "../useMutationFacade";
+import useCart from "../useCart";
+import { gql } from "@apollo/client";
 const create = gql`
   mutation createCart($draft: MyCartDraft!) {
     createMyCart(draft: $draft) {
@@ -41,7 +41,7 @@ export const addLineItem = (sku, quantity, channel) => [
         ? {
             distributionChannel: {
               id: channel,
-              typeId: 'channel',
+              typeId: "channel",
             },
           }
         : undefined),
@@ -95,7 +95,7 @@ export const addDiscountCode = (code) => [
 export const removeDiscountCode = (id) => [
   {
     removeDiscountCode: {
-      discountCode: { id, typeId: 'discount-code' },
+      discountCode: { id, typeId: "discount-code" },
     },
   },
 ];
@@ -103,7 +103,7 @@ export const setShippingMethod = (shippingMethodId) => [
   {
     setShippingMethod: {
       shippingMethod: {
-        typeId: 'shipping-method',
+        typeId: "shipping-method",
         id: shippingMethodId,
       },
     },
@@ -172,7 +172,7 @@ const useCartMutation = ({ location, currency }) => {
         return result;
       })
       .then((result) => {
-        cache.evict({ id: 'activeCart' });
+        cache.evict({ id: "activeCart" });
         cache.gc();
         return result;
       });

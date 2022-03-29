@@ -1,6 +1,6 @@
-import { useCartActions } from 'hooks/useCartMutation';
-import config from '../sunrise.config';
-import useCart from './useCart';
+import { useCartActions } from "./useCartMutation";
+import config from "../sunrise.config";
+import useCart from "./useCart";
 
 function subTotal(cartLike) {
   const { currencyCode, fractionDigits } =
@@ -63,12 +63,12 @@ const lineItemAttr = (lineItem) => {
       attributeDefinition.label,
       value,
     ]);
-  return attributes.join(', ');
+  return attributes.join(", ");
 };
 
 const productRoute = (lineItem) => {
   return {
-    name: 'product',
+    name: "product",
     params: {
       sku: lineItem.variant.sku,
       productSlug: lineItem.productSlug,

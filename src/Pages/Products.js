@@ -1,8 +1,7 @@
-import { useParams } from "react-router-dom";
+import ProductListItem from "../components/ProductListItem";
 import useProductTools from "../composition/useProductTools";
 
 function Products() {
-  // const { addLine } = useCartTools();
   const {
     formatProduct,
     products,
@@ -13,15 +12,17 @@ function Products() {
     setPage,
   } = useProductTools();
 
-  console.log({
-    formatProduct,
-    products,
-    total,
-    loading,
-    page,
-    error,
-    setPage,
-  });
-  return "this is products";
+  return (
+    <div>
+      {products &&
+        products.map((product) => (
+          <ProductListItem
+            key={product.productId}
+            product={product}
+          />
+        ))}
+      {/* @todo: need pagination */}
+    </div>
+  );
 }
 export default Products;

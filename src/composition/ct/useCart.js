@@ -1,7 +1,7 @@
-import gql from 'graphql-tag';
-import useQueryFacade from '../useQueryFacade';
-import { useState, useEffect } from 'react';
-import { getValue } from '../../src/lib';
+import { gql } from "@apollo/client";
+import useQueryFacade from "../useQueryFacade";
+import { useState, useEffect } from "react";
+import { getValue } from "../../lib";
 
 //@todo: we will worry about importing the partials
 //  when the cart route is done

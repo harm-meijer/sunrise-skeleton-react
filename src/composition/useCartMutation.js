@@ -1,6 +1,6 @@
-import org from './ct/useCartMutation';
-import useCurrency from './useCurrency';
-import useLocation from './useLocation';
+import org from "./ct/useCartMutation";
+import useCurrency from "./useCurrency";
+import useLocation from "./useLocation";
 import {
   addLineItem,
   changeCartLineItemQuantity,
@@ -11,10 +11,9 @@ import {
   setBillingAddress,
   setShippingAddress,
   createMyOrderFromCart,
-} from './ct/useCartMutation';
-import useSelectedChannel from './useSelectedChannel';
-import { getValue } from '../src/lib';
-import { apolloClient, cache } from '../src/apollo';
+} from "./ct/useCartMutation";
+import useSelectedChannel from "./useSelectedChannel";
+import { apolloClient, cache } from "../apollo";
 export {
   addLineItem,
   changeCartLineItemQuantity,
@@ -64,9 +63,7 @@ export const useCartActions = () => {
     mutateCart(removeLineItem(lineItemId));
   };
   const addLine = (sku, quantity) =>
-    mutateCart(
-      addLineItem(sku, quantity, channel.value?.id)
-    );
+    mutateCart(addLineItem(sku, quantity, channel?.id));
   const applyDiscount = (code) =>
     mutateCart(addDiscountCode(code));
   const removeDiscount = (codeId) =>
@@ -85,13 +82,12 @@ export const useCartActions = () => {
   }) => {
     const actions = [
       setBillingAddress({
-        ...getValue(billingAddress),
-        country: location.value,
+        ...billingAddress,
+        country: location,
       }),
       setShippingAddress({
-        ...(getValue(shippingAddress) ||
-          getValue(billingAddress)),
-        country: location.value,
+        ...(shippingAddress || billingAddress),
+        country: location,
       }),
     ];
     return mutateCart(actions)
@@ -102,7 +98,7 @@ export const useCartActions = () => {
         );
       })
       .then(() => {
-        cache.evict({ id: 'activeCart' });
+        cache.evict({ id: "activeCart" });
         cache.gc();
       });
   };
