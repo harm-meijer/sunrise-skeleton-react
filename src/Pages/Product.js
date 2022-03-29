@@ -11,7 +11,7 @@ function Product() {
     () => addLine(sku, 1),
     [addLine, sku]
   );
-  const { allVariants } = useProductTools();
+  const { allVariants } = useProductTools(true);
 
   return allVariants ? (
     <div>

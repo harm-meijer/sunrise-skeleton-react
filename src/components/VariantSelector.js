@@ -13,7 +13,7 @@ function VariantSelector({ allVariants, sku }) {
             return {
               label: name, //@todo: how to translate name??
               value: getAttributeValue(value, locale),
-              sku,
+              sku: s,
               score: s === sku ? 1 : 0,
             };
           })
@@ -24,7 +24,7 @@ function VariantSelector({ allVariants, sku }) {
         ),
     [allVariants, locale, sku]
   );
-  const validKeys = useMemo(() => {
+  const [validKeys, variants] = useMemo(() => {
     const variants = tmpAttributes.reduce(
       (acc, { label, value }) =>
         acc.set(
@@ -40,9 +40,8 @@ function VariantSelector({ allVariants, sku }) {
         variants.set(key, [...new Set(value)]);
       }
     });
-    return [...variants.keys()];
+    return [[...variants.keys()], variants];
   }, [tmpAttributes]);
-
   const [score, setScore] = useState(() =>
     tmpAttributes
       .filter(({ label }) => validKeys.includes(label))
@@ -69,8 +68,6 @@ function VariantSelector({ allVariants, sku }) {
             0
           );
       };
-      //vue does not understand immutable
-      // eslint-disable-next-line no-unused-vars
       const { [label]: _, ...rest } = userSet;
       setUserSet({ ...rest, [label]: value });
       const newScore = new Map(score);
@@ -118,7 +115,21 @@ function VariantSelector({ allVariants, sku }) {
     (label, value) => score.get(sku)[label] === value,
     [score, sku]
   );
-
-  return 'hi';
+  return (
+    <div>
+      {[...variants.entries()].map(([label, variants]) => (
+        <select
+          onChange={(e) => changeAndSet(label, e)}
+          key={label}
+        >
+          {variants.map((variant) => (
+            <option key={variant} value={variant}>
+              {variant}
+            </option>
+          ))}
+        </select>
+      ))}
+    </div>
+  );
 }
 export default VariantSelector;
