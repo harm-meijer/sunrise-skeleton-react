@@ -2,9 +2,12 @@ import { useCallback, useMemo, useState } from 'react';
 import { getAttributeValue } from '../lib';
 import useLocale from '../composition/useLocale';
 import config from '../sunrise.config';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function VariantSelector({ allVariants, sku }) {
   const { locale } = useLocale();
+  const navigate = useNavigate();
+  const { productSlug } = useParams();
   const tmpAttributes = useMemo(
     () =>
       allVariants
@@ -83,37 +86,35 @@ function VariantSelector({ allVariants, sku }) {
         newScore.set(sku, newV);
       });
       setScore(newScore);
+      return newScore;
     },
     [score, sku, userSet]
   );
-  const setVariant = useCallback(() => {
-    let high = 0;
-    let s;
-    score.forEach(({ score }, key) => {
-      if (score >= high) {
-        high = score;
-        s = key;
-      }
-    });
-    //@todo: move to new sku
-    console.log('move to:', s);
-  }, [score]);
+  const setVariant = useCallback(
+    (score) => {
+      let high = 0;
+      let s;
+      score.forEach(({ score }, key) => {
+        if (score >= high) {
+          high = score;
+          s = key;
+        }
+      });
+      navigate(`/product/${productSlug}/${s}`);
+    },
+    [navigate, productSlug]
+  );
   const variantChange = useCallback(
     (label, e) => {
-      updateScore(label, e.target.value);
+      return updateScore(label, e.target.value);
     },
     [updateScore]
   );
   const changeAndSet = useCallback(
     (label, e) => {
-      variantChange(label, e);
-      setVariant();
+      setVariant(variantChange(label, e));
     },
     [setVariant, variantChange]
-  );
-  const isSelected = useCallback(
-    (label, value) => score.get(sku)[label] === value,
-    [score, sku]
   );
   return (
     <div>
@@ -121,6 +122,7 @@ function VariantSelector({ allVariants, sku }) {
         <select
           onChange={(e) => changeAndSet(label, e)}
           key={label}
+          value={score.get(sku)[label]}
         >
           {variants.map((variant) => (
             <option key={variant} value={variant}>
