@@ -26,6 +26,7 @@ function App() {
             </>
           )}
         </div>
+        <Link to="/cart">cart</Link>
       </nav>
       <Outlet />
     </div>
