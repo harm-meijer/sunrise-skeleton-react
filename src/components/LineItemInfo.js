@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartTools from '../composition/useCartTools';
+import BasePrice from './BasePrice';
 import LineItemQuantityForm from './LineItemQuantityForm';
 import Remove from './Remove';
 
@@ -30,8 +31,12 @@ function LineItemInfo({
       //@todo: call selectionChanged
     }
   }, [selected]);
-  const { productRoute, displayedImageUrl, lineItemAttr } =
-    useCartTools();
+  const {
+    productRoute,
+    displayedImageUrl,
+    lineItemAttr,
+    total,
+  } = useCartTools();
   return (
     <tbody>
       <tr>
@@ -67,7 +72,9 @@ function LineItemInfo({
         </td>
         {!selectable ? (
           <td>
-            <span>BasePrice</span>
+            <span>
+              <BasePrice price={lineItem.price} />
+            </span>
           </td>
         ) : null}
         <td>
@@ -97,7 +104,9 @@ function LineItemInfo({
         </td>
         {!selectable ? (
           <td>
-            <span>BasePrice</span>
+            <span>
+              <BasePrice price={total(lineItem)} />
+            </span>
           </td>
         ) : null}
       </tr>
