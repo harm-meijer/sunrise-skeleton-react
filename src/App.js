@@ -1,7 +1,9 @@
 import { Link, Outlet } from 'react-router-dom';
 import Menu from './components/Menu';
 import './App.css';
+import useCustomerTools from './composition/useCustomerTools';
 function App() {
+  const { customer, logout } = useCustomerTools();
   return (
     <div>
       <h1>App</h1>
@@ -13,7 +15,16 @@ function App() {
       >
         <Menu />
         <div>
-          <Link to="/login">login</Link>
+          {Boolean(customer) ? (
+            <a href="# " onClick={logout}>
+              logout
+            </a>
+          ) : (
+            <>
+              <Link to="/login">login</Link>
+              <Link to="/sign-up">sign up</Link>
+            </>
+          )}
         </div>
       </nav>
       <Outlet />

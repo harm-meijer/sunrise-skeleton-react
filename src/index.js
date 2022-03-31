@@ -1,17 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter,
   Routes,
   Route,
-} from "react-router-dom";
-import App from "./App";
-import Products from "./Pages/Products";
-import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "./apollo";
-import Product from "./Pages/Product";
+} from 'react-router-dom';
+import App from './App';
+import Products from './Pages/Products';
+import { ApolloProvider } from '@apollo/client';
+import { apolloClient } from './apollo';
+import Product from './Pages/Product';
+import Login from './Pages/Login';
+import ForgotPassword from './Pages/ForgotPassword';
+import ResetPassword from './Pages/ResetPassword';
+import SignUp from './Pages/SignUp';
 
 ReactDOM.render(
   <ApolloProvider client={apolloClient}>
@@ -30,11 +34,21 @@ ReactDOM.render(
             path="product/:productSlug/:sku"
             element={<Product />}
           />
+          <Route path="login" element={<Login />} />
+          <Route
+            path="forgot-password"
+            element={<ForgotPassword />}
+          />
+          <Route
+            path="reset-password/:token"
+            element={<ResetPassword />}
+          />
+          <Route path="sign-up" element={<SignUp />} />
         </Route>
       </Routes>
     </BrowserRouter>
   </ApolloProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,11 +1,12 @@
-import useMyOrder from "./useMyOrder";
-import useMyOrders from "./useMyOrders";
-import basic from "./ct/useCustomerTools";
-import { loginToken, logout as lo } from "../apollo/auth";
-import { cache } from "../apollo";
-import { CUSTOMER } from "../constants";
-import { createReactive } from "./lib";
-import { useEffect, useState } from "react";
+import useMyOrder from './useMyOrder';
+import useMyOrders from './useMyOrders';
+import basic from './ct/useCustomerTools';
+import { loginToken, logout as lo } from '../apollo/auth';
+import { cache } from '../apollo';
+import { CUSTOMER } from '../constants';
+import { createReactive } from './lib';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 const saveCustomerState = (c) => {
   customerGlobal.setValue(c);
 };
@@ -41,6 +42,7 @@ const customerGlobal = createReactive(
     localStorage.setItem(CUSTOMER, JSON.stringify(newValue))
 );
 function useCustomerTools() {
+  const navigate = useNavigate();
   const [customer, setCustomer] = useState(
     customerGlobal.ref.value
   );
@@ -71,11 +73,9 @@ function useCustomerTools() {
         return result;
       });
   const resetPassword = ({ token, newPassword }) =>
-    basic.resetPassword({ token, newPassword }).then(
-      () =>
-        //@todo: go to log in page
-        88
-    );
+    basic
+      .resetPassword({ token, newPassword })
+      .then(() => navigate('/login'));
 
   const logout = () => {
     lo();
@@ -93,7 +93,7 @@ function useCustomerTools() {
     return basic
       .returnItems(id, version, items)
       .then(() => {
-        cache.evict({ id: "orders" });
+        cache.evict({ id: 'orders' });
         cache.gc();
         //@todo: go to order with id
       });
@@ -118,10 +118,9 @@ function useCustomerTools() {
         //@todo: go to user profile
       );
   const gotoResetToken = (token) =>
-    //@todo: go to reset password route
-    token;
+    navigate(`/reset-password/${token}`);
   //@todo: get token from route
-  const { token } = { token: "88" };
+  const { token } = useParams() || {};
   return {
     token,
     login,
