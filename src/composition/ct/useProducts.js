@@ -1,9 +1,8 @@
-import { gql } from "@apollo/client";
-import { getValue } from "../../lib";
-import useCategories from "../useCategories";
-import { useEffect, useState } from "react";
-import useQuery from "../useQueryFacade";
-//@todo: price for logged in user (do in React, mock in Vue)
+import { gql } from '@apollo/client';
+import { getValue } from '../../lib';
+import useCategories from '../useCategories';
+import { useEffect, useState } from 'react';
+import useQuery from '../useQueryFacade';
 //@todo: we will worry about importing the partials
 //  when the cart route is done
 const query = (expand) => gql`
@@ -60,7 +59,7 @@ const query = (expand) => gql`
             country
           }
         }`
-            : ""
+            : ''
         }
         masterVariant {
           # better never select id or cache breaks
@@ -130,18 +129,18 @@ const updateFilters = (
 ) =>
   filters
     .filter(
-      (f) => !(f?.model?.value?.path === "variants.sku")
+      (f) => !(f?.model?.value?.path === 'variants.sku')
     )
     .filter(
       (filter) =>
-        !(filter?.model?.tree?.path === "categories.id")
+        !(filter?.model?.tree?.path === 'categories.id')
     )
     .concat(
       sku
         ? {
             model: {
               value: {
-                path: "variants.sku",
+                path: 'variants.sku',
                 values: [sku],
               },
             },
@@ -153,7 +152,7 @@ const updateFilters = (
         ? {
             model: {
               tree: {
-                path: "categories.id",
+                path: 'categories.id',
                 rootValues: [],
                 subTreeValues: [categoryId],
               },
@@ -172,14 +171,14 @@ const createPriceSelector = (
   country: getValue(country),
   channel: getValue(channel)
     ? {
-        typeId: "priceChannel",
+        typeId: 'priceChannel',
         id: getValue(channel).id,
       }
     : null,
   customerGroup: getValue(customerGroup)
     ? {
         id: getValue(customerGroup),
-        typeId: "customer-group",
+        typeId: 'customer-group',
       }
     : null,
 });
@@ -222,11 +221,11 @@ const useProducts = ({
         {
           model: {
             range: {
-              path: "variants.scopedPrice.value.centAmount",
+              path: 'variants.scopedPrice.value.centAmount',
               ranges: [
                 {
-                  from: "0",
-                  to: "1000000000000",
+                  from: '0',
+                  to: '1000000000000',
                 },
               ],
             },

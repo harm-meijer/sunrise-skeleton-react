@@ -25,6 +25,5 @@ function ProductListItem({ product }) {
       <pre>{JSON.stringify(product, undefined, 2)}</pre>;
     </div>
   );
-  //@todo: need image and price component
 }
 export default ProductListItem;

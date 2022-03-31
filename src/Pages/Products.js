@@ -1,5 +1,5 @@
-import ProductListItem from "../components/ProductListItem";
-import useProductTools from "../composition/useProductTools";
+import ProductListItem from '../components/ProductListItem';
+import useProductTools from '../composition/useProductTools';
 
 function Products() {
   const {
@@ -11,7 +11,7 @@ function Products() {
     error,
     setPage,
   } = useProductTools();
-
+  // @todo: show eror
   return (
     <div>
       {products &&
@@ -21,7 +21,6 @@ function Products() {
             product={product}
           />
         ))}
-      {/* @todo: use other returned values from useProductTools */}
       {/* @todo: need pagination */}
     </div>
   );

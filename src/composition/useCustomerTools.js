@@ -82,7 +82,7 @@ function useCustomerTools() {
     customerGlobal.setValue(null);
     //reset entire cache, customer may have had specific prices
     cache.reset();
-    //@todo: go to login page
+    navigate('/login');
   };
   const login = (email, password) =>
     li(email, password).then(() => navigate('/user'));
@@ -110,13 +110,9 @@ function useCustomerTools() {
         saveCustomerState(c);
         return loginToken(c.email, newPassword);
       })
-      .then(
-        () => 88
-        //@todo: go to user profile
-      );
+      .then(() => navigate('/user'));
   const gotoResetToken = (token) =>
     navigate(`/reset-password/${token}`);
-  //@todo: get token from route
   const { token } = useParams() || {};
   return {
     token,

@@ -14,7 +14,7 @@ function VariantSelector({ allVariants, sku }) {
         .map(({ attributesRaw, sku: s }) =>
           attributesRaw.map(({ name, value }) => {
             return {
-              label: name, //@todo: how to translate name??
+              label: name,
               value: getAttributeValue(value, locale),
               sku: s,
               score: s === sku ? 1 : 0,
