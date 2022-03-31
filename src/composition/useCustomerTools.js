@@ -69,7 +69,7 @@ function useCustomerTools() {
         );
         //reset entire cache, customer may have specific prices
         cache.reset();
-        //@todo: go to user profile
+        navigate('/user');
         return result;
       });
   const resetPassword = ({ token, newPassword }) =>
@@ -85,10 +85,7 @@ function useCustomerTools() {
     //@todo: go to login page
   };
   const login = (email, password) =>
-    li(email, password).then(
-      () => 88
-      //@todo: go to user profile
-    );
+    li(email, password).then(() => navigate('/user'));
   const returnItems = (id, version, items) => {
     return basic
       .returnItems(id, version, items)
