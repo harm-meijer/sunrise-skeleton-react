@@ -3,11 +3,6 @@ const getEnv = (env) => {
     ? global.Cypress.env(env)
     : process.env[env];
 };
-let localConfig = {};
-if (getEnv('REACT_APP_LOCAL_SUNRISE_CONFIG')) {
-  localConfig = require(process.env
-    .REACT_APP_LOCAL_SUNRISE_CONFIG).default;
-}
 
 const config = {
   ct: {
@@ -167,7 +162,6 @@ const config = {
   ],
   variantSelector: ['color', 'size'],
   variantInProductName: ['size'],
-  ...localConfig,
 };
 // eslint-disable-next-line no-console
 console.log('using config:', config);
