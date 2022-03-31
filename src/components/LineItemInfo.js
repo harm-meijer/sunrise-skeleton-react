@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartTools from '../composition/useCartTools';
+import Remove from './Remove';
 
 function LineItemInfo({
   lineItem,
@@ -33,7 +34,11 @@ function LineItemInfo({
   return (
     <tbody>
       <tr>
-        {editable ? <td>Remove component</td> : null}
+        {editable ? (
+          <td>
+            <Remove lineItemId={lineItem.lineId} />
+          </td>
+        ) : null}
         {selectable ? (
           <td>
             <input
