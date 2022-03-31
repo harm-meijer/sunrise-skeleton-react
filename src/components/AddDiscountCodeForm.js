@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import useCartTools from '../composition/useCartTools';
 
 function AddDiscountCodeForm() {
   const { applyDiscount: ad } = useCartTools();
   const [form, setForm] = useState({
-    code: '',
+    code: 'CODE2019',
   });
   const [error, setError] = useState(null);
   const applyDiscount = () => {

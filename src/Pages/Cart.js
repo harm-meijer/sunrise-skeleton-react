@@ -1,5 +1,6 @@
 import AddDiscountCodeForm from '../components/AddDiscountCodeForm';
 import CartLikeContentDetail from '../components/CartLikeContentDetail';
+import CartLikePriceDetail from '../components/CartLikePriceDetail';
 import useCart from '../composition/useCart';
 import useCartTools from '../composition/useCartTools';
 
@@ -28,7 +29,12 @@ function Cart() {
                         <AddDiscountCodeForm />
                       </div>
                     </div>
-                    <div>cartlikepricedetail</div>
+                    <div>
+                      <CartLikePriceDetail
+                        cart={cart}
+                        editable={true}
+                      />
+                    </div>
                   </div>
                 </form>
               </div>
