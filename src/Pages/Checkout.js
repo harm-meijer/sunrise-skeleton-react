@@ -34,7 +34,7 @@ function Checkout() {
     if (!orderComplete && !cart && !loading) {
       navigate('/');
     }
-  }, [cart, loading, orderComplete]);
+  }, [cart, loading, navigate, orderComplete]);
   const updateBilling = useCallback((billingDetails) => {
     setBillingAddress(billingDetails);
   }, []);
