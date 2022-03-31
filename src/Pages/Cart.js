@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import AddDiscountCodeForm from '../components/AddDiscountCodeForm';
 import CartLikeContentDetail from '../components/CartLikeContentDetail';
 import CartLikePriceDetail from '../components/CartLikePriceDetail';
@@ -34,6 +35,9 @@ function Cart() {
                         cart={cart}
                         editable={true}
                       />
+                    </div>
+                    <div>
+                      <Link to="/checkout">checkout</Link>
                     </div>
                   </div>
                 </form>
