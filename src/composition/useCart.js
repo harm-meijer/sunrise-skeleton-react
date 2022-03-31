@@ -1,9 +1,10 @@
 import useLocale from './useLocale';
-import useCart from './ct/useCart';
+import useOrg from './ct/useCart';
 //Vue/app specific code
-export default () => {
+function useCart() {
   const { locale } = useLocale();
-  return useCart({
+  return useOrg({
     locale,
   });
-};
+}
+export default useCart;

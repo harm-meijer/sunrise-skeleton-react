@@ -1,22 +1,24 @@
 import useLocale from './useLocale';
 import useLocation from './useLocation';
 import useCurrency from './useCurrency';
-import useShippingMethods from './ct/useShippingMethods';
+import useOrg from './ct/useShippingMethods';
 
-export default () => {
+function useShippingMethods() {
   const { locale } = useLocale();
   const { location } = useLocation();
   const currency = useCurrency();
-  const { total, shippingMethods, loading, error } =
-    useShippingMethods({
+  const { total, shippingMethods, loading, error } = useOrg(
+    {
       locale,
       currency,
       country: location,
-    });
+    }
+  );
   return {
     total,
     shippingMethods,
     loading,
     error,
   };
-};
+}
+export default useShippingMethods;

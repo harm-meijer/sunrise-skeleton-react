@@ -1,6 +1,6 @@
-import org from "./ct/useCartMutation";
-import useCurrency from "./useCurrency";
-import useLocation from "./useLocation";
+import org from './ct/useCartMutation';
+import useCurrency from './useCurrency';
+import useLocation from './useLocation';
 import {
   addLineItem,
   changeCartLineItemQuantity,
@@ -11,9 +11,10 @@ import {
   setBillingAddress,
   setShippingAddress,
   createMyOrderFromCart,
-} from "./ct/useCartMutation";
-import useSelectedChannel from "./useSelectedChannel";
-import { apolloClient, cache } from "../apollo";
+} from './ct/useCartMutation';
+import useSelectedChannel from './useSelectedChannel';
+import { apolloClient, cache } from '../apollo';
+
 export {
   addLineItem,
   changeCartLineItemQuantity,
@@ -98,7 +99,7 @@ export const useCartActions = () => {
         );
       })
       .then(() => {
-        cache.evict({ id: "activeCart" });
+        cache.evict({ id: 'activeCart' });
         cache.gc();
       });
   };

@@ -3,6 +3,7 @@ import useCart from '../composition/useCart';
 import { Link, useNavigate } from 'react-router-dom';
 import useCartTools from '../composition/useCartTools';
 import BillingDetails from '../components/BillingDetails';
+import OrderOverview from '../components/OrderOverview';
 
 function Checkout() {
   const { cartNotEmpty } = useCartTools();
@@ -31,7 +32,7 @@ function Checkout() {
       );
   };
   useEffect(() => {
-    if (!orderComplete && !cart && !loading) {
+    if (!orderComplete && cart === null && !loading) {
       navigate('/');
     }
   }, [cart, loading, navigate, orderComplete]);
@@ -60,12 +61,12 @@ function Checkout() {
                   />
                 </div>
                 <div>
-                  {/* <OrderOverview
-              @update-shipping="updateShippingMethod"
-              @complete-order="placeOrder"
-              :showError="showError"
-              :cart="cart"
-            /> */}
+                  <OrderOverview
+                    updateShipping={updateShippingMethod}
+                    completeOrder={placeOrder}
+                    cart={cart}
+                  />
+
                   {Boolean(error) ? (
                     <pre>
                       {JSON.stringify(error, undefined, 2)}
