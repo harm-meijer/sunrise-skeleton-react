@@ -18,6 +18,7 @@ function Checkout() {
   const [error, setError] = useState(null);
   const { cart, loading } = useCart();
   const cartTools = useCartTools();
+  //@todo: what happened to the payment method passed to this?
   const placeOrder = () => {
     return cartTools
       .createMyOrderFromCart({

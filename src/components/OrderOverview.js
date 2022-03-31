@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import useCartTools from '../composition/useCartTools';
 import BasePrice from './BasePrice';
+import PaymentMethod from './PaymentMethod';
 import ShippingMethod from './ShippingMethod';
 
-function OrderOverview({ cart }) {
+function OrderOverview({
+  cart,
+  updateShipping,
+  completeOrder,
+}) {
   const { lineItemAttr, total, subTotal } = useCartTools();
   const [paid, setPaid] = useState(false);
   const [paymentId, setPaymentId] = useState(null);
-  const cardPaid = (paymentId) => {
+  const cartPaid = (paymentId) => {
     if (paymentId) {
       setPaymentId(paymentId);
     }
     setPaid(true);
   };
-  const updateShippingMethod = (shippingId) => {
-    // emit('update-shipping', shippingId);
-    //@todo: set shipping id
-  };
   const placeOrder = () => {
-    // emit('complete-order', paymentId);
-    //@todo: set complete order
+    completeOrder(paymentId);
   };
   return Boolean(cart) ? (
     <div>
@@ -68,15 +68,14 @@ function OrderOverview({ cart }) {
             <span>shipping</span>
           </div>
           <ShippingMethod
-            updateShipping={updateShippingMethod}
+            updateShipping={updateShipping}
             cart={cart}
           />
         </div>
-        {/* <PaymentMethod
-      v-bind:amount="cart.totalPrice"
-      v-on:card-paid="cardPaid"
-      :key="cart.totalPrice.centAmount"
-    /> */}
+        <PaymentMethod
+          amount={cart.totalPrice}
+          cartPaid={cartPaid}
+        />
         <div>
           <ul>
             <li>
