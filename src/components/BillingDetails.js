@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import BaseAddressForm from './BaseAddressForm';
 
 function BillingDetails({
@@ -14,33 +14,23 @@ function BillingDetails({
   const [newShippingAddress, setNewShippingAddress] =
     useState(null);
 
-  const unsetBillingAddress = () => {
-    setNewBillingAddress(null);
-  };
-  const updateBillingAddress = (address) => {
+  const updateBillingAddress = useCallback((address) => {
     setNewBillingAddress(address);
-  };
-  const updateShippingAddress = (address) => {
+  }, []);
+  const updateShippingAddress = useCallback((address) => {
     setNewShippingAddress(address);
-  };
+  }, []);
   useEffect(() => {
     if (!differentAddress) {
       setNewShippingAddress(null);
     }
   }, [differentAddress]);
   useEffect(() => {
-    // emit('update-billing-details', newBillingAddress);
-    //@todo: call change method
-    console.log('never happens', newBillingAddress);
-  }, [newBillingAddress]);
+    updateBillingDetails(newBillingAddress);
+  }, [newBillingAddress, updateBillingDetails]);
   useEffect(() => {
-    // emit(
-    //   'update-shipping-details',
-    //   newShippingAddress.value
-    // );
-    console.log('updated shipping:', shippingAddress);
-    //@todo: call update
-  }, [shippingAddress]);
+    updateShippingDetails(newShippingAddress);
+  }, [newShippingAddress, updateShippingDetails]);
   return (
     <div>
       <h3>billingDetails</h3>

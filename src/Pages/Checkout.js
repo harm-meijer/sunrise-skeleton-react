@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useCart from '../composition/useCart';
 import { Link, useNavigate } from 'react-router-dom';
 import useCartTools from '../composition/useCartTools';
@@ -35,16 +35,15 @@ function Checkout() {
       navigate('/');
     }
   }, [cart, loading, orderComplete]);
-  const updateBilling = (billingDetails) => {
+  const updateBilling = useCallback((billingDetails) => {
     setBillingAddress(billingDetails);
-  };
-  const updateShipping = (shippingDetails) => {
+  }, []);
+  const updateShipping = useCallback((shippingDetails) => {
     setShippingAddress(shippingDetails);
-  };
-  const updateShippingMethod = (shippingId) => {
+  }, []);
+  const updateShippingMethod = useCallback((shippingId) => {
     setShippingMethod(shippingId);
-  };
-
+  }, []);
   return (
     <span>
       {cartNotEmpty(cart) ? (

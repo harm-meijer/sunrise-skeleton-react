@@ -17,14 +17,11 @@ function BaseAddressForm({ address, updateAddress }) {
     function setChanged() {
       prevFrom.current = form;
     }
-    console.log('same:', prevFrom.current === form);
-    //@todo: dispatch?
-    // emit(
-    //   'update-address',
-    //   JSON.parse(JSON.stringify(form))
-    // );
+    if (prevFrom.current !== form) {
+      updateAddress(form);
+    }
     return setChanged;
-  }, [form]);
+  }, [form, updateAddress]);
   const change = (field) => (e) => {
     setForm((form) => ({
       ...form,
