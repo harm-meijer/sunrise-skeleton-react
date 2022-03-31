@@ -1,3 +1,4 @@
+import AddDiscountCodeForm from '../components/AddDiscountCodeForm';
 import CartLikeContentDetail from '../components/CartLikeContentDetail';
 import useCart from '../composition/useCart';
 import useCartTools from '../composition/useCartTools';
@@ -23,7 +24,9 @@ function Cart() {
                         cart={cart}
                         editable={true}
                       />
-                      <div>adddiscountcodeform</div>
+                      <div>
+                        <AddDiscountCodeForm />
+                      </div>
                     </div>
                     <div>cartlikepricedetail</div>
                   </div>
