@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import BaseMoney from '../components/BaseMoney';
 import useCustomerTools from '../composition/useCustomerTools';
 
 function Orders() {
@@ -36,7 +37,9 @@ function Orders() {
               {orders.map((order) => (
                 <tr key={order.orderId}>
                   <td>{order.createdAt}</td>
-                  <td>{order.totalPrice}</td>
+                  <td>
+                    <BaseMoney money={order.totalPrice} />
+                  </td>
                   <td>{paymentInfo(order)}</td>
                   <td>{order.shipmentState}</td>
                   <td>
