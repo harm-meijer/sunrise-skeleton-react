@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartTools from '../composition/useCartTools';
+import LineItemQuantityForm from './LineItemQuantityForm';
 import Remove from './Remove';
 
 function LineItemInfo({
@@ -70,11 +71,12 @@ function LineItemInfo({
           </td>
         ) : null}
         <td>
-          {/* <LineItemQuantityForm
-        v-if="editable"
-        :line-item-id="lineItem.lineId"
-        :quantity="lineItem.quantity"
-      /> */}
+          {editable ? (
+            <LineItemQuantityForm
+              lineItemId={lineItem.lineId}
+              quantity={lineItem.quantity}
+            />
+          ) : null}
           {selectable ? (
             <div>
               <div class="cart-plus-minus">
