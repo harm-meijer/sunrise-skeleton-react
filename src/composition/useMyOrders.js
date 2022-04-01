@@ -1,18 +1,18 @@
-import { useState } from "react";
-import useMyOrdersBasic from "./ct/useMyOrders";
-import usePaging from "./usePaging";
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import useMyOrdersBasic from './ct/useMyOrders';
+import usePaging from './usePaging';
 
 function useMyOrders() {
-  //@todo: get initial page from route
-  const [p, setP] = useState("1");
-  const { limit, offset } = usePaging(p);
+  const { page } = useParams();
+  const { limit, offset } = usePaging(Number(page));
+  const navigate = useNavigate();
   const setPage = (page) =>
-    //@todo: set router page prop
-    88;
+    navigate(`/user/orders/${page}`);
   const { error, loading, orders, total } =
     useMyOrdersBasic({ limit, offset });
   return {
-    page: p,
+    page: Number(page),
     error,
     loading,
     orders,

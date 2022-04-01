@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import BaseMoney from '../components/BaseMoney';
+import Pagination from '../components/Pagination';
 import useCustomerTools from '../composition/useCustomerTools';
 
 function Orders() {
@@ -52,7 +53,11 @@ function Orders() {
               ))}
             </tbody>
           </table>
-          {/* @todo: need pagination */}
+          <Pagination
+            total={total}
+            page={page}
+            setPage={setPage}
+          />
         </div>
       ) : null}
       {!orderListNotEmpty ? (
