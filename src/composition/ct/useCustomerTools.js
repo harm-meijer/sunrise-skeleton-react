@@ -1,7 +1,7 @@
-import { gql } from "@apollo/client";
-import { apolloClient } from "../../apollo";
-import useMyOrder from "../useMyOrder";
-import useMyOrders from "../useMyOrders";
+import { gql } from '@apollo/client';
+import { apolloClient } from '../../apollo';
+import useMyOrder from '../useMyOrder';
+import useMyOrders from '../useMyOrders';
 export const loginVars = (email, password) => ({
   draft: {
     email,
@@ -43,7 +43,7 @@ const returnItems = (id, version, items) => {
       version,
       items: items.map((item) => ({
         ...item,
-        shipmentState: "Advised",
+        shipmentState: 'Returned',
       })),
     },
   });
