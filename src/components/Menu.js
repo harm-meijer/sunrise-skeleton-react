@@ -1,17 +1,23 @@
-import { Link } from "react-router-dom";
-import useCategories from "../composition/useCategories";
+import { Link, useParams } from 'react-router-dom';
+import useCategories from '../composition/useCategories';
 
 function Menu() {
+  const { categorySlug } = useParams();
   const { categories } = useCategories({
     rootOnly: true,
-    sort: ["orderHint asc"],
+    sort: ['orderHint asc'],
   });
-  const isActive = (slug) =>
-    //@todo: depends on category slug
-    false;
+  const isActive = (slug) => slug === categorySlug;
   return categories
     ? categories.map((category) => (
-        <span key={category.id}>
+        <span
+          key={category.id}
+          style={
+            isActive(category.slug)
+              ? { backgroundColor: 'gray' }
+              : null
+          }
+        >
           <Link to={`products/${category.slug}`}>
             {category.name.toUpperCase()}
           </Link>

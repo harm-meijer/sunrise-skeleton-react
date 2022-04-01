@@ -1,26 +1,20 @@
-import useLocale from "./useLocale";
-import useLocation from "./useLocation";
-import useCurrency from "./useCurrency";
-import useOrg from "./ct/useProducts";
-import usePaging from "./usePaging";
-import useSearch from "./useSearch";
-import useCustomerTools from "./useCustomerTools";
-import useSelectedChannel from "./useSelectedChannel";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import useLocale from './useLocale';
+import useLocation from './useLocation';
+import useCurrency from './useCurrency';
+import useOrg from './ct/useProducts';
+import usePaging from './usePaging';
+import useSearch from './useSearch';
+import useCustomerTools from './useCustomerTools';
+import useSelectedChannel from './useSelectedChannel';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 export const useSorts = () => {
-  //@todo: sort from url param
-  const [sorts] = useState(() => ["lastModifiedAt desc"]);
-  // route?.query?.sort === 'newest'
-  //   ? ['lastModifiedAt desc']
-  //   : null;
-  const setSort = (sort) =>
-    //@todo: set router sort
-    sort;
+  const [sorts] = useState(() => ['lastModifiedAt desc']);
+  const setSort = (sort) => sort;
   return { sorts, setSort };
 };
 const allCategories = (slug) =>
-  slug === "all" ? null : slug;
+  slug === 'all' ? null : slug;
 function useProducts({ expand } = {}) {
   const { customer } = useCustomerTools();
   const { locale } = useLocale();

@@ -1,9 +1,9 @@
 function useLocation() {
-  //@todo: location from url
+  //@todo: location from url or local storgage?
   return {
-    location: "US",
+    location: 'US',
     setLocation: () => {
-      throw new Error("setLocation not implemented");
+      throw new Error('setLocation not implemented');
     },
   };
 }

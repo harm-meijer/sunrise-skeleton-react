@@ -11,7 +11,6 @@ function Order() {
   const tools = useCustomerTools();
   const { loading, order } = tools.useMyOrder();
   const subtotal = useMemo(() => {
-    //@todo: is this not already done in cart tools?
     if (order) {
       const { currencyCode, fractionDigits } =
         order.totalPrice;

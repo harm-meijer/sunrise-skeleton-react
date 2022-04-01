@@ -99,7 +99,6 @@ function useCategoryId({ categorySlug, setSkip, locale }) {
     !getValue(categorySlug) || !getValue(locale)
   );
   const [categoryId, setCategoryId] = useState(null);
-  //@todo: Error handling needed
   const { categories, error } = useCategories({
     categorySlug,
     skip: skipCategory,
