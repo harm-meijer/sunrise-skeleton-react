@@ -5,43 +5,14 @@ function CartLikeContentDetail({
   cart,
   editable = true,
   selectable = false,
-  onChangeSelectedItems = defaultOnChange,
+  selectionChanged = defaultOnChange,
 }) {
-  const [selectedReturnItems, setSelectedReturnItems] =
-    useState([]);
-  const selectReturnItem = useCallback(
-    (item) => {
-      setSelectedReturnItems((selectedReturnItems) => {
-        const newItems = selectedReturnItems
-          .filter(({ id }) => id !== item.id)
-          .concat(item);
-        onChangeSelectedItems(newItems);
-        return newItems;
-      });
-    },
-    [onChangeSelectedItems]
-  );
-  const unselectReturnItem = useCallback(
-    (item) => {
-      setSelectedReturnItems((selectedReturnItems) => {
-        const newItems = selectedReturnItems.filter(
-          ({ id }) => id !== item.id
-        );
-        onChangeSelectedItems(newItems);
-        return newItems;
-      });
-    },
-    [onChangeSelectedItems]
-  );
-
   return (
     <div>
       <table>
         <thead>
           <tr>
-            {selectable ? (
-              <th style="width: 10%"></th>
-            ) : null}
+            {selectable ? <th></th> : null}
             {editable ? <th></th> : null}
             <th></th>
             <th>description</th>
@@ -56,8 +27,7 @@ function CartLikeContentDetail({
             selectable={selectable}
             key={lineItem.lineId}
             lineItem={lineItem}
-            selectReturnItem={selectReturnItem}
-            unSelectReturnItem={unselectReturnItem}
+            selectionChanged={selectionChanged}
           />
         ))}
       </table>

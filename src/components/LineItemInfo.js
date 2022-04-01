@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useCartTools from '../composition/useCartTools';
 import BasePrice from './BasePrice';
 import LineItemQuantityForm from './LineItemQuantityForm';
 import Remove from './Remove';
-
+const defaultChanged = () => 88;
 function LineItemInfo({
   lineItem,
   extended = true,
   editable = true,
   selectable = false,
-  selectReturnItem,
-  unSelectReturnItem,
+  selectionChanged = defaultChanged,
 }) {
   const [selected, setSelected] = useState(false);
   const [item, setItem] = useState(() =>
@@ -22,25 +21,25 @@ function LineItemInfo({
         }
       : null
   );
-  useEffect(() => {
-    if (selected === true) {
-      selectReturnItem(item);
-    }
-    if (selected === false) {
-      unSelectReturnItem(item);
-    }
-  }, [
-    item,
-    selectReturnItem,
-    selected,
-    unSelectReturnItem,
-  ]);
   const {
     productRoute,
     displayedImageUrl,
     lineItemAttr,
     total,
   } = useCartTools();
+  const onChange = useCallback((e) => {
+    setSelected(e.target.checked);
+  }, []);
+  const changeQuantity = useCallback((e) => {
+    const quantity = e.target.value;
+    setItem((item) => ({ ...item, quantity }));
+  }, []);
+  useEffect(() => {
+    const quantity = Number(item?.quantity);
+    if (quantity) {
+      selectionChanged({ ...item, quantity }, selected);
+    }
+  }, [item, selected, selectionChanged]);
   return (
     <tbody>
       <tr>
@@ -52,9 +51,10 @@ function LineItemInfo({
         {selectable ? (
           <td>
             <input
-              // onChange?
+              onChange={onChange}
               value={lineItem.variant.sku}
               type="checkbox"
+              checked={selected}
             />
           </td>
         ) : null}
@@ -90,10 +90,9 @@ function LineItemInfo({
           ) : null}
           {selectable ? (
             <div>
-              <div class="cart-plus-minus">
+              <div>
                 <input
-                  // v-model.number="item.quantity"
-                  //onChange
+                  onChange={changeQuantity}
                   value={item.quantity}
                   type="number"
                 />

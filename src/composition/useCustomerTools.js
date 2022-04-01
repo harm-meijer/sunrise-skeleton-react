@@ -92,7 +92,7 @@ function useCustomerTools() {
       .then(() => {
         cache.evict({ id: 'orders' });
         cache.gc();
-        //@todo: go to order with id
+        navigate('/user/orders');
       });
   };
   const updateMyCustomerPassword = ({
