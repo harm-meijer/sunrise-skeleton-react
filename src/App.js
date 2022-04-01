@@ -16,9 +16,12 @@ function App() {
         <Menu />
         <div>
           {Boolean(customer) ? (
-            <a href="# " onClick={logout}>
-              logout
-            </a>
+            <>
+              <a href="# " onClick={logout}>
+                logout
+              </a>
+              <Link to="/user">user profile</Link>
+            </>
           ) : (
             <>
               <Link to="/login">login</Link>
