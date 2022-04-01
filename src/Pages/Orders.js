@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import BaseMoney from '../components/BaseMoney';
 import useCustomerTools from '../composition/useCustomerTools';
 
@@ -43,7 +44,9 @@ function Orders() {
                   <td>{paymentInfo(order)}</td>
                   <td>{order.shipmentState}</td>
                   <td>
-                    @todo: create link to order detail
+                    <Link to={`../order/${order.orderId}`}>
+                      view
+                    </Link>
                   </td>
                 </tr>
               ))}

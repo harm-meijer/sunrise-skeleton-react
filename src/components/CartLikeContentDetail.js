@@ -1,32 +1,38 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import LineItemInfo from './LineItemInfo';
-
+const defaultOnChange = () => 88;
 function CartLikeContentDetail({
   cart,
-  onChangeSelectedItems,
   editable = true,
   selectable = false,
+  onChangeSelectedItems = defaultOnChange,
 }) {
   const [selectedReturnItems, setSelectedReturnItems] =
     useState([]);
-  const selectReturnItem = (item) => {
-    setSelectedReturnItems((selectedReturnItems) => {
-      const newItems = selectedReturnItems
-        .filter(({ id }) => id !== item.id)
-        .concat(item);
-      onChangeSelectedItems(newItems);
-      return newItems;
-    });
-  };
-  const unselectReturnItem = (item) => {
-    setSelectedReturnItems((selectedReturnItems) => {
-      const newItems = selectedReturnItems.value.filter(
-        ({ id }) => id !== item.id
-      );
-      onChangeSelectedItems(newItems);
-      return newItems;
-    });
-  };
+  const selectReturnItem = useCallback(
+    (item) => {
+      setSelectedReturnItems((selectedReturnItems) => {
+        const newItems = selectedReturnItems
+          .filter(({ id }) => id !== item.id)
+          .concat(item);
+        onChangeSelectedItems(newItems);
+        return newItems;
+      });
+    },
+    [onChangeSelectedItems]
+  );
+  const unselectReturnItem = useCallback(
+    (item) => {
+      setSelectedReturnItems((selectedReturnItems) => {
+        const newItems = selectedReturnItems.filter(
+          ({ id }) => id !== item.id
+        );
+        onChangeSelectedItems(newItems);
+        return newItems;
+      });
+    },
+    [onChangeSelectedItems]
+  );
 
   return (
     <div>
@@ -50,13 +56,10 @@ function CartLikeContentDetail({
             selectable={selectable}
             key={lineItem.lineId}
             lineItem={lineItem}
+            selectReturnItem={selectReturnItem}
+            unSelectReturnItem={unselectReturnItem}
           />
         ))}
-        {/* <LineItemInfo
-      v-for="lineItem in cart.lineItems"
-      @select-return-item="selectReturnItem"
-      @unselect-return-item="unselectReturnItem"
-    /> */}
       </table>
     </div>
   );

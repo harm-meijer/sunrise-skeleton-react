@@ -10,7 +10,8 @@ function LineItemInfo({
   extended = true,
   editable = true,
   selectable = false,
-  selectionChanged,
+  selectReturnItem,
+  unSelectReturnItem,
 }) {
   const [selected, setSelected] = useState(false);
   const [item, setItem] = useState(() =>
@@ -23,14 +24,17 @@ function LineItemInfo({
   );
   useEffect(() => {
     if (selected === true) {
-      // emit('select-return-item', item.value);
-      //@todo: call selecitonChanged?
+      selectReturnItem(item);
     }
     if (selected === false) {
-      // emit('unselect-return-item', item.value);
-      //@todo: call selectionChanged
+      unSelectReturnItem(item);
     }
-  }, [selected]);
+  }, [
+    item,
+    selectReturnItem,
+    selected,
+    unSelectReturnItem,
+  ]);
   const {
     productRoute,
     displayedImageUrl,

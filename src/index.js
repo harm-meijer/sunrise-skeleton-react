@@ -20,6 +20,7 @@ import User from './Pages/User';
 import Orders from './Pages/Orders';
 import Cart from './Pages/Cart';
 import Checkout from './Pages/Checkout';
+import Order from './Pages/Order';
 
 ReactDOM.render(
   <ApolloProvider client={apolloClient}>
@@ -52,7 +53,10 @@ ReactDOM.render(
           <Route path="checkout" element={<Checkout />} />
           <Route path="user" element={<User />}>
             <Route path="orders" element={<Orders />}>
-              <Route path="page" element={<Orders />} />
+              <Route path=":page" element={<Orders />} />
+            </Route>
+            <Route path="order" element={<Order />}>
+              <Route path=":id" element={<Order />} />
             </Route>
           </Route>
         </Route>
