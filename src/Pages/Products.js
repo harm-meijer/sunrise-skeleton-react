@@ -1,3 +1,4 @@
+import Pagination from '../components/Pagination';
 import ProductListItem from '../components/ProductListItem';
 import useProductTools from '../composition/useProductTools';
 
@@ -11,9 +12,11 @@ function Products() {
     error,
     setPage,
   } = useProductTools();
-  // @todo: show eror
   return (
     <div>
+      {error ? (
+        <pre>{JSON.stringify(error, undefined, 2)}</pre>
+      ) : null}
       {products &&
         products.map((product) => (
           <ProductListItem
@@ -21,7 +24,11 @@ function Products() {
             product={product}
           />
         ))}
-      {/* @todo: need pagination */}
+      <Pagination
+        total={total}
+        page={page}
+        setPage={setPage}
+      />
     </div>
   );
 }

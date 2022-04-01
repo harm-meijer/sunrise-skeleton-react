@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 function useMyOrder() {
   const { locale } = useLocale();
-  //@todo: get id from route and set it if changed
   const { id } = useParams();
   const { loading, error, order } = useMyOrderBasic({
     locale,

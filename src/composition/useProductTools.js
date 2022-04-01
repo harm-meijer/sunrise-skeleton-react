@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useProducts from './useProducts';
 
 function useProductTools(expand = false) {
-  const { sku } = useParams();
+  const navigate = useNavigate();
+  const { sku, page, categorySlug } = useParams();
   const { products, total, loading, error, categoryError } =
     useProducts({
       sku,
@@ -40,9 +41,7 @@ function useProductTools(expand = false) {
   );
 
   const setPage = (page) =>
-    //@todo: update router param page
-    page;
-  const page = 1; //@todo: get page from route
+    navigate(`/products/${categorySlug}/${page}`);
   const formatProduct = (product) => ({
     ...product,
     ...product.masterVariant,
@@ -64,7 +63,7 @@ function useProductTools(expand = false) {
     currentVariant,
     setPage,
     formatProduct,
-    page,
+    page: Number(page),
   };
 }
 export default useProductTools;
