@@ -6,6 +6,9 @@ function User() {
       <div>
         <Link to="orders">orders</Link>
       </div>
+      <div>
+        <Link to="changepassword">Change password</Link>
+      </div>
       <Outlet />
     </div>
   );
