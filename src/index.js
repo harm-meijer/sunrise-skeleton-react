@@ -23,6 +23,7 @@ import Checkout from './Pages/Checkout';
 import Order from './Pages/Order';
 import Return from './Pages/Return';
 import ChangePassword from './Pages/ChangePassword';
+import Account from './Pages/Account';
 
 ReactDOM.render(
   <ApolloProvider client={apolloClient}>
@@ -67,6 +68,7 @@ ReactDOM.render(
               path="changepassword"
               element={<ChangePassword />}
             />
+            <Route path="account" element={<Account />} />
           </Route>
         </Route>
       </Routes>

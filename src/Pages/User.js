@@ -9,6 +9,9 @@ function User() {
       <div>
         <Link to="changepassword">Change password</Link>
       </div>
+      <div>
+        <Link to="account">Account</Link>
+      </div>
       <Outlet />
     </div>
   );
