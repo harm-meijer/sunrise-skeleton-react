@@ -25,7 +25,8 @@ import Return from './Pages/Return';
 import ChangePassword from './Pages/ChangePassword';
 import Account from './Pages/Account';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <ApolloProvider client={apolloClient}>
     <BrowserRouter>
       <Routes>
@@ -73,8 +74,7 @@ ReactDOM.render(
         </Route>
       </Routes>
     </BrowserRouter>
-  </ApolloProvider>,
-  document.getElementById('root')
+  </ApolloProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
